@@ -6,6 +6,8 @@ const galleryMarkup = createGalleryMarkup(galleryItems);
 
 galleryList.insertAdjacentHTML("beforeend", galleryMarkup);
 
+galleryList.addEventListener("click", onGalleryLinstClick);
+
 function createGalleryMarkup(galleryItems) {
   return galleryItems
     .map(({ preview, original, description }) => {
@@ -24,4 +26,22 @@ function createGalleryMarkup(galleryItems) {
     })
     .join("");
 }
-console.log(createGalleryMarkup(galleryItems));
+
+function onGalleryLinstClick(evt) {
+  evt.preventDefault();
+  console.dir(evt.target.dataset);
+  const largeImage = evt.target.dataset.source;
+  const modal = basicLightbox.create(
+    `<img width="1200" height="800" src="${largeImage}"/>`
+  );
+  modal.show();
+  document.addEventListener("keydown", EscPress);
+
+  function EskPress(evt) {
+    if (evt.key === "Escape") {
+      modal.close();
+      console.log(evt.key);
+      document.removeEventListener("keydown", EskPress);
+    }
+  }
+}
