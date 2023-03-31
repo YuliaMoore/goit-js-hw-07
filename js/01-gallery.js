@@ -35,13 +35,14 @@ function onGalleryLinstClick(evt) {
     `<img width="1200" height="800" src="${largeImage}"/>`
   );
   modal.show();
-  document.addEventListener("keydown", EscPress);
 
-  function EskPress(evt) {
-    if (evt.key === "Escape") {
+  document.addEventListener("keydown", handlEscPress);
+
+  function handlEscPress(evt) {
+    if (evt.code === "Escape") {
       modal.close();
       console.log(evt.key);
-      document.removeEventListener("keydown", EskPress);
+      document.removeEventListener("keydown", handlEscPress);
     }
   }
 }
